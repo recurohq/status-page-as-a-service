@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3111:3000"
+    environment:
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-changeme}
+      - DATABASE_PATH=/app/data/status-page.db
+      - SITE_NAME=${SITE_NAME:-Status Page}
+      - SITE_DESCRIPTION=${SITE_DESCRIPTION:-Current status of our services}
+      - BASE_URL=${BASE_URL:-http://localhost:3000}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-status@example.com}
+    volumes:
+      - status-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  status-data:
